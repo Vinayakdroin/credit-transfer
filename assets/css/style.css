@@ -4,12 +4,12 @@
 
 /* CSS Variables for Consistent Design */
 :root {
-    --primary-color: #2563eb;
-    --primary-dark: #1d4ed8;
-    --primary-light: #3b82f6;
-    --secondary-color: #f97316;
-    --secondary-dark: #ea580c;
-    --secondary-light: #fb923c;
+    --primary-color: #2d7d58;
+    --primary-dark: #1e5e42;
+    --primary-light: #4a9d70;
+    --secondary-color: #2e5984;
+    --secondary-dark: #1e3a5f;
+    --secondary-light: #4a7ba7;
     --success-color: #059669;
     --warning-color: #d97706;
     --danger-color: #dc2626;
@@ -89,25 +89,14 @@ p {
     text-decoration: none;
 }
 
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.navbar-logo {
+    height: 50px;
+    width: auto;
+    transition: var(--transition);
 }
 
-.logo-main {
-    font-family: var(--font-secondary);
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    line-height: 1;
-}
-
-.logo-sub {
-    font-size: 0.75rem;
-    color: var(--gray-500);
-    font-weight: 500;
-    margin-top: -0.2rem;
+.navbar-logo:hover {
+    transform: scale(1.05);
 }
 
 .navbar-nav .nav-link {
