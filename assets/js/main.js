@@ -278,7 +278,7 @@
     }
 
     /**
-     * Handle form submission
+     * Handle form submission to Google Sheets
      */
     function handleFormSubmission() {
         const submitButton = inquiryForm.querySelector('button[type="submit"]');
@@ -292,32 +292,128 @@
         // Collect form data
         const formData = new FormData(inquiryForm);
         const data = Object.fromEntries(formData);
+        
+        // Add timestamp and form source
+        data.timestamp = new Date().toLocaleString();
+        data.source = 'Website Contact Form';
+        data.formType = 'Course Inquiry';
 
-        // Simulate form processing (in real implementation, this would be an API call)
-        setTimeout(() => {
-            // Reset button
-            submitButton.disabled = false;
-            submitButton.textContent = originalText;
-            submitButton.classList.remove('loading');
+        // Submit to Google Sheets
+        submitToGoogleSheets(data)
+            .then(() => {
+                // Success
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+                submitButton.classList.remove('loading');
 
-            // Show success message
-            inquiryForm.style.display = 'none';
-            successMessage.style.display = 'block';
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
+                // Show success message
+                inquiryForm.style.display = 'none';
+                showSuccessMessage();
+            })
+            .catch((error) => {
+                // Error handling
+                console.error('Form submission error:', error);
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+                submitButton.classList.remove('loading');
+                
+                showErrorMessage();
             });
-
-            // In a real implementation, you would send the data to your server
-            console.log('Form submitted with data:', data);
-            
-            // Optional: Send data to external service or email
-            // This could be integrated with services like Formspree, Netlify Forms, etc.
-            
-        }, 2000);
     }
+
+    /**
+     * Submit form data to Google Sheets
+     */
+    function submitToGoogleSheets(data) {
+        // You need to replace this URL with your actual Google Apps Script web app URL
+        // See google-apps-script.js file for setup instructions
+        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+        
+        return fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(data)
+        });
+    }
+
+    /**
+     * Show success message
+     */
+    function showSuccessMessage() {
+        let successMessage = document.getElementById('successMessage');
+        
+        if (!successMessage) {
+            successMessage = document.createElement('div');
+            successMessage.id = 'successMessage';
+            successMessage.className = 'alert alert-success text-center';
+            successMessage.innerHTML = `
+                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                <h4>Thank You!</h4>
+                <p>Your inquiry has been submitted successfully. Our counselors will contact you within 24 hours.</p>
+                <button type="button" class="btn btn-primary mt-3" onclick="resetForm()">Submit Another Inquiry</button>
+            `;
+            inquiryForm.parentElement.appendChild(successMessage);
+        }
+        
+        successMessage.style.display = 'block';
+        successMessage.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+        });
+    }
+
+    /**
+     * Show error message
+     */
+    function showErrorMessage() {
+        let errorMessage = document.getElementById('errorMessage');
+        
+        if (!errorMessage) {
+            errorMessage = document.createElement('div');
+            errorMessage.id = 'errorMessage';
+            errorMessage.className = 'alert alert-danger text-center';
+            errorMessage.innerHTML = `
+                <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                <h4>Submission Failed</h4>
+                <p>There was an issue submitting your form. Please try again or contact us directly.</p>
+                <button type="button" class="btn btn-danger mt-3" onclick="resetForm()">Try Again</button>
+            `;
+            inquiryForm.parentElement.appendChild(errorMessage);
+        }
+        
+        errorMessage.style.display = 'block';
+        errorMessage.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+        });
+    }
+
+    /**
+     * Reset form function (global)
+     */
+    window.resetForm = function() {
+        inquiryForm.style.display = 'block';
+        inquiryForm.reset();
+        
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        if (successMessage) successMessage.style.display = 'none';
+        if (errorMessage) errorMessage.style.display = 'none';
+        
+        // Remove validation classes
+        inquiryForm.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+            el.classList.remove('is-valid', 'is-invalid');
+        });
+        
+        // Remove error messages
+        inquiryForm.querySelectorAll('.invalid-feedback').forEach(el => {
+            el.remove();
+        });
+    };
 
     /**
      * Initialize scroll animations

@@ -66,8 +66,10 @@ Preferred communication style: Simple, everyday language.
 
 ### Form Processing
 - Client-side form validation and handling
-- Success message display system
-- No backend integration (static site)
+- Google Sheets integration for data collection
+- Success/error message display system
+- Email notifications for admissions team
+- Timestamp and source tracking for all submissions
 
 ## External Dependencies
 
@@ -77,8 +79,9 @@ Preferred communication style: Simple, everyday language.
 - **Google Fonts**: Typography (Inter and Poppins families)
 
 ### Third-party Integrations
-- No external APIs or services integrated
-- Self-contained static website architecture
+- **Google Sheets Integration**: All application forms submit to Google Sheets automatically
+- **Google Apps Script**: Server-side form processing and email notifications
+- **Email Notifications**: Automatic alerts to admissions@principleinstitute.org
 - CDN dependencies for performance optimization
 
 ## Deployment Strategy
@@ -99,3 +102,14 @@ Preferred communication style: Simple, everyday language.
 - Semantic HTML structure for content updates
 - Centralized styling through CSS variables
 - Clear separation of concerns between structure, styling, and behavior
+
+## Recent Changes: Latest modifications with dates
+
+### Google Sheets Integration (July 28, 2025)
+- Added complete Google Sheets integration for all application forms
+- Created Google Apps Script handler for form submissions  
+- Integrated automatic email notifications for new applications
+- Added professional photos of leadership team (Mr. Askar Ali M K and Mr. Savan Devanand)
+- Replaced all university partnership images with authentic campus photos
+- Forms now automatically capture: student info, course interest, qualifications, timestamps, and source tracking
+- Created comprehensive setup documentation (GOOGLE_SHEETS_SETUP.md)
