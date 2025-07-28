@@ -519,6 +519,55 @@ p {
     line-height: 1.6;
 }
 
+/* Leadership Styles */
+.leader-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    height: 100%;
+    text-align: center;
+}
+
+.leader-photo {
+    margin-bottom: 1.5rem;
+}
+
+.leader-photo img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+}
+
+.leader-quote {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.leader-quote .quote-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.leader-quote p {
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--gray-700);
+}
+
+.leader-info h5 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.leader-info .position {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
 /* Testimonials */
 .testimonial-card {
     background: var(--white);
